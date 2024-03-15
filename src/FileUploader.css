@@ -1,74 +1,112 @@
-.file-uploader {
+/* ExcelUploader.css */
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.excel-uploader-container {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    height: 100vh;
+    background-image: url('./123.jpg');
+    background-size: 100% 100%;
+    background-position: center; /* Ensure the background image is centered */
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ensure the container fills the entire viewport height */
-    background-image: url('image.jpeg'); /* Replace 'your_image.jpg' with the path to your image */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    justify-content: center;
 }
 
-h2 {
-    color: #333;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.form {
-    width: 90%;
+.excel-uploader-form {
     max-width: 400px;
-    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
     padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
 }
 
-.form div {
+.excel-uploader-form .form-group {
     margin-bottom: 20px;
 }
 
-.form label {
+.excel-uploader-form label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-weight: bold;
-    color: #555;
 }
 
-.form input[type="file"] {
+.excel-uploader-form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.upload-button {
     display: block;
-}
-
-button[type="submit"] {
-    padding: 10px 20px;
+    width: 100%;
+    padding: 10px;
     background-color: #007bff;
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
+.upload-button:hover {
     background-color: #0056b3;
 }
 
-.result {
-    margin-top: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.result-container {
+    margin-bottom: 20px;
 }
 
-.result div {
-    margin-bottom: 10px;
+.result-item {
+    margin-bottom: 20px;
 }
 
-.submit-edited-data {
-    margin-top: 20px;
+.result-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.result-item input[type="text"] {
+    width: calc(50% - 5px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.dropdown-container {
+    margin-bottom: 20px;
+}
+
+.dropdown-container select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button-container {
     text-align: center;
-    display: none;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #218838;
 }

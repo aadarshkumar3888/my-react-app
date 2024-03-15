@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './FileUploader.css';
+import backgroundImage from './123.jpg'; // Import the background image
 
 function ExcelUploader() {
     const [file1, setFile1] = useState(null);
@@ -8,8 +10,8 @@ function ExcelUploader() {
     const [editedData, setEditedData] = useState({});
     const [selectedValue1, setSelectedValue1] = useState('');
     const [selectedValue2, setSelectedValue2] = useState('');
-    const [showSubmitButton, setShowSubmitButton] = useState(false); // State to control visibility of the submit button
-    const [showDropdowns, setShowDropdowns] = useState(false); // State to control visibility of the dropdowns
+    const [showSubmitButton, setShowSubmitButton] = useState(false);
+    const [showDropdowns, setShowDropdowns] = useState(false);
 
     const handleFile1Change = (event) => {
         setFile1(event.target.files[0]);
@@ -29,8 +31,6 @@ function ExcelUploader() {
         axios.post('http://localhost:8080/recon/test3', formData)
             .then(response => {
                 setResultData(response.data);
-
-                // Show the submit button and dropdowns after data is received
                 setShowSubmitButton(true);
                 setShowDropdowns(true);
             })
@@ -41,17 +41,13 @@ function ExcelUploader() {
     };
 
     const handleEditSubmit = () => {
-        // Merge resultData and editedData
         const mergedData = { ...resultData, ...editedData };
 
-        // Append selected values
         mergedData['selectedValue1'] = selectedValue1;
         mergedData['selectedValue2'] = selectedValue2;
 
-        // Send merged data to the backend
         axios.post('http://localhost:8080/recon/test4', mergedData)
             .then(response => {
-                // Handle response from the backend if needed
                 console.log('Edited data submitted successfully:', response.data);
             })
             .catch(error => {
@@ -59,30 +55,28 @@ function ExcelUploader() {
             });
     };
 
-
-
     return (
-        <div>
+        <div className="excel-uploader-container" style={{ backgroundImage: `url(${backgroundImage})` }}> {/* Set background image */}
             <h2>Upload Excel Files</h2>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
-                <div>
+            <form onSubmit={handleSubmit} encType="multipart/form-data" className="excel-uploader-form">
+                <div className="form-group">
                     <label htmlFor="file1">Select Excel File 1:</label>
                     <input type="file" id="file1" name="file1" accept=".xlsx, .xls" onChange={handleFile1Change} />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="file2">Select Excel File 2:</label>
                     <input type="file" id="file2" name="file2" accept=".xlsx, .xls" onChange={handleFile2Change} />
                 </div>
-                <button type="submit">Upload</button>
+                <button type="submit" className="upload-button">Upload</button>
             </form>
-            <div id="result">
+            <div className="result-container">
                 {/* Display result data */}
                 {Object.keys(resultData).map((key, index) => (
-                    <div key={index}>
-                        <label>Key:</label>
+                    <div key={index} className="result-item">
+                        <label>Header 1:</label>
                         <input
                             type="text"
-                            value={editedData[key]?.key || key} // If key is edited, show edited key, otherwise show original key
+                            value={editedData[key]?.key || key}
                             onChange={(event) => {
                                 const newKey = event.target.value;
                                 setEditedData(prevState => ({
@@ -91,24 +85,23 @@ function ExcelUploader() {
                                 }));
                             }}
                         />
-                        <label>Value:</label>
+                        <label>Header 2:</label>
                         <input
                             type="text"
-                            value={editedData[key]?.value || resultData[key]} // If value is edited, show edited value, otherwise show original value
+                            value={editedData[key]?.value || resultData[key]}
                             onChange={(event) => {
                                 const newValue = event.target.value;
                                 setEditedData(prevState => ({
                                     ...prevState,
-                                    [key]: { key: editedData[key]?.key || key, value: newValue } // Use edited key if available
+                                    [key]: { key: editedData[key]?.key || key, value: newValue }
                                 }));
                             }}
                         />
-                        <br />
                     </div>
                 ))}
                 {/* Dropdowns for selected values */}
                 {showDropdowns && (
-                    <>
+                    <div className="dropdown-container">
                         <select value={selectedValue1} onChange={(event) => setSelectedValue1(event.target.value)}>
                             {Object.keys(resultData).map((key, index) => (
                                 <option key={index} value={resultData[key]}>
@@ -123,12 +116,12 @@ function ExcelUploader() {
                                 </option>
                             ))}
                         </select>
-                    </>
+                    </div>
                 )}
             </div>
             {showSubmitButton && (
-                <div id="submitEditedData">
-                    <button id="submitEditedButton" type="button" onClick={handleEditSubmit}>
+                <div className="submit-button-container">
+                    <button className="submit-button" type="button" onClick={handleEditSubmit}>
                         Submit Edited Data
                     </button>
                 </div>
