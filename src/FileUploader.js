@@ -73,7 +73,7 @@ function ExcelUploader() {
                 {/* Display result data */}
                 {Object.keys(resultData).map((key, index) => (
                     <div key={index} className="result-item">
-                        <label>Header 1:</label>
+                        <label>Key:</label>
                         <input
                             type="text"
                             value={editedData[key]?.key || key}
@@ -85,7 +85,7 @@ function ExcelUploader() {
                                 }));
                             }}
                         />
-                        <label>Header 2:</label>
+                        <label>Value:</label>
                         <input
                             type="text"
                             value={editedData[key]?.value || resultData[key]}
